@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+   version="6.0">
+    
+    <servlet>
+        <servlet-name>BergerTablesServlet</servlet-name>
+        <servlet-class>pl.polsl.bergertablesweb.servlet.BergerTablesServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BergerTablesServlet</servlet-name>
+        <url-pattern>/BergerTablesServlet</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>HistoryServlet</servlet-name>
+        <servlet-class>pl.polsl.bergertablesweb.servlet.HistoryServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>HistoryServlet</servlet-name>
+        <url-pattern>/HistoryServlet</url-pattern>
+    </servlet-mapping>
+    
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+</web-app>
