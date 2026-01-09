@@ -2,6 +2,7 @@
     Document   : result
     Created on : 7 sty 2026, 10:13:16
     Author     : Dominika
+    Version    : 2.0
 --%>
 <%@ page import="pl.polsl.bergertablesweb.model.MyTableModel" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -39,7 +40,7 @@ else if (tabelModel == null) {%>
 <p>Tablica pusta</p>
 <% } %>
     <br>
-        <a href="index.html">← Change teams names</a>
+        <a href="index.jsp">← Change teams names</a>
         <a href="HistoryServlet">History</a>
     </body>
     

@@ -1,7 +1,8 @@
 <%-- 
     Document   : error
     Created on : 7 sty 2026, 10:18:07
-    Author     : Domi
+    Author     : Dominika
+    Version    : 1.0
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -20,7 +21,7 @@
             out.println("<div class='error-message'>An unknown error occurred.</div>");
         }
     %>
-    <a href="index.html">← Back to teams names</a>
+    <a href="index.jsp">← Back to teams names</a>
 </body>
 <style>
     body { 

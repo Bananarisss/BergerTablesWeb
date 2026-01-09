@@ -1,7 +1,8 @@
 <%-- 
     Document   : history
     Created on : 7 sty 2026, 10:18:19
-    Author     : Domi
+    Author     : Dominika
+    Version    : 1.0
 --%>
 <%@ page import="pl.polsl.bergertablesweb.model.BergerTablesHistory.HistoryEntry" %>
 <%@ page import="java.util.List" %>
@@ -38,7 +39,7 @@
         <% } %>
         
         <br><br>
-        <a href="index.html">← Back to team names</a>
+        <a href="index.jsp">← Back to team names</a>
     </body>
     <style>
     body { 

@@ -11,32 +11,42 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.*;
 import java.io.IOException;
 import java.util.List;
+import jakarta.servlet.annotation.WebServlet;
 
 /**
+ * The HistoryServlet class is responsible for handling HTTP request related to
+ * history of matches.
+ * <p>
+ * It retrieves and displays the given teams names an the matches created for
+ * them.</p>
  *
  * @author Dominika
+ * @version 1.0
  */
+@WebServlet("/HistoryServlet")
 public class HistoryServlet extends HttpServlet {
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
-     * @param request servlet request
-     * @param response servlet response
+     * @param request The HttpServletRequest object that contains the request
+     * the client made of the servlet.
+     * @param response The HttpServletResponse object that contains the response
+     * the servlet returns to the client.
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        BergerTablesHistory history =
-                (BergerTablesHistory) getServletContext().getAttribute("history");
+        BergerTablesHistory history
+                = (BergerTablesHistory) getServletContext().getAttribute("history");
         if (history == null) {
             history = new BergerTablesHistory();
             getServletContext().setAttribute("history", history);
         }
-        
+
         // Retrieve calculation history and set it as a request attribute
         List<HistoryEntry> historyList = history.getHistory();
         request.setAttribute("historyList", historyList);
@@ -45,14 +55,19 @@ public class HistoryServlet extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("history.jsp");
         dispatcher.forward(request, response);
     }
-    
+
     /**
-     * Handles the HTTP <code>GET</code> method.
+     * Handles the HTTP <code>GET</code> requests.
+     * <p>
+     * By forwarding GET requests to processRequest method it allows the servlet
+     * to handle both GET and POST requests in the same manner</p>
      *
-     * @param request  servlet request
-     * @param response servlet response
+     * @param request The HttpServletRequest object that contains the request
+     * the client made of the servlet.
+     * @param response The HttpServletResponse object that contains the response
+     * the servlet returns to the client.
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException      if an I/O error occurs
+     * @throws IOException if an I/O error occurs
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -61,12 +76,17 @@ public class HistoryServlet extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Handles the HTTP <code>POST</code> requests.
+     * <p>
+     * By forwarding POST requests to processRequest method it allows the
+     * servlet to handle both GET and POST requests in the same manner</p>
      *
-     * @param request  servlet request
-     * @param response servlet response
+     * @param request The HttpServletRequest object that contains the request
+     * the client made of the servlet.
+     * @param response The HttpServletResponse object that contains the response
+     * the servlet returns to the client.
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException      if an I/O error occurs
+     * @throws IOException if an I/O error occurs
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
