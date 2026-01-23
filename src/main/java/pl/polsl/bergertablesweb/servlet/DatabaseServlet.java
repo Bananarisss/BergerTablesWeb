@@ -12,7 +12,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.persistence.*;
+import jakarta.servlet.ServletConfig;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import pl.polsl.bergertablesweb.entities.*;
 import pl.polsl.bergertablesweb.model.*;
 
@@ -23,7 +26,31 @@ import pl.polsl.bergertablesweb.model.*;
 @WebServlet(name = "DatabaseServlet", urlPatterns = {"/DatabaseServlet"})
 public class DatabaseServlet extends HttpServlet {
 
-    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("MyPU");
+    private static final Logger logger = Logger.getLogger(DatabaseServlet.class.getName());
+    private static EntityManagerFactory emf;// = Persistence.createEntityManagerFactory("my_persistence_unit");
+    
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        // Pobierz nazwę jednostki trwałości z context-param (unikamy zaszytego stringa)
+        String puName = getServletContext().getInitParameter("persistenceUnitName");
+        try {
+            emf = Persistence.createEntityManagerFactory(puName);
+            logger.info("EntityManagerFactory initialized for PU: " + puName);
+        } catch (PersistenceException ex) {
+            logger.log(Level.SEVERE, "Failed to initialize EntityManagerFactory for PU: " + puName, ex);
+            throw new ServletException("Błąd inicjalizacji połączenia z bazą danych.", ex);
+        }
+    }
+
+    @Override
+    public void destroy() {
+        if (emf != null && emf.isOpen()) {
+            emf.close();
+            logger.info("EntityManagerFactory closed.");
+        }
+        super.destroy();
+    }
     
     public List<TournamentEntity> getAllTournaments() {
         List<TournamentEntity> tournamentList = null;
@@ -33,8 +60,9 @@ public class DatabaseServlet extends HttpServlet {
             Query query = em.createQuery("SELECT t FROM TournamentEntity t", TournamentEntity.class);
             tournamentList = query.getResultList();
         } catch (PersistenceException e) {
-            e.printStackTrace(); //re[lace with proper message for users
+            logger.log(Level.SEVERE, "Error reading tournaments from DB", e);
             em.getTransaction().rollback();
+            throw e;
         } finally {
             em.close();
         }
@@ -95,8 +123,9 @@ public class DatabaseServlet extends HttpServlet {
             em.persist(tournament); // Zapisuje Turniej i kaskadowo wszystkie Mecze
             em.getTransaction().commit();
         } catch (PersistenceException e) {
-            e.printStackTrace(); //re[lace with proper message for users
+            logger.log(Level.SEVERE, "Error saving tournament", e);
             em.getTransaction().rollback();
+            throw e;
         } finally {
             em.close();
         }
@@ -109,8 +138,9 @@ public class DatabaseServlet extends HttpServlet {
             em.persist(object);
             em.getTransaction().commit();
         } catch (PersistenceException e) {
-            e.printStackTrace(); // replace with proper message for the client
+            logger.log(Level.SEVERE, "Error persisting object", e);
             em.getTransaction().rollback();
+            throw e;
         } finally {
             em.close();
         }
@@ -128,5 +158,19 @@ public class DatabaseServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        try {
+            List<TournamentEntity> tournaments = getAllTournaments();
+            request.setAttribute("tournaments", tournaments);
+            // forward do JSP, które wyświetla listę
+            request.getRequestDispatcher("/database.jsp").forward(request, response);
+        } catch (PersistenceException ex) {
+            logger.log(Level.SEVERE, "Database error in doGet", ex);
+            request.setAttribute("errorMessage", "Błąd podczas pobierania danych z bazy: " + ex.getMessage());
+            request.getRequestDispatcher("/error.jsp").forward(request, response);
+        } catch (Exception ex) {
+            logger.log(Level.SEVERE, "Unexpected error in doGet", ex);
+            request.setAttribute("errorMessage", "Wystąpił błąd: " + ex.getMessage());
+            request.getRequestDispatcher("/error.jsp").forward(request, response);
+        }
     } 
 }

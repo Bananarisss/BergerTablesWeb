@@ -42,6 +42,7 @@ else if (tabelModel == null) {%>
     <br>
         <a href="index.jsp">← Change teams names</a>
         <a href="HistoryServlet">History</a>
+        <a href="DatabaseServlet">Database</a>
     </body>
     
     <style>

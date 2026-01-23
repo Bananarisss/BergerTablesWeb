@@ -95,6 +95,9 @@
         <form action="HistoryServlet" method="get">
             <button type="submit">Show History</button>
         </form>
+        <form action="DatabaseServlet" method="get">
+            <button type="submit">Show Database</button>
+        </form>
     </div>
 
 </body>
