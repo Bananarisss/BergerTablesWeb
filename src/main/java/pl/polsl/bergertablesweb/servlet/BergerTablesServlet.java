@@ -47,7 +47,6 @@ public class BergerTablesServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        //dbServlet.init();
         BergerTablesModel model
                 = (BergerTablesModel) getServletContext().getAttribute("model");
         if (model == null) {
@@ -81,7 +80,7 @@ public class BergerTablesServlet extends HttpServlet {
                     .filter(s -> !s.equals("PAUSE"))
                     .collect(Collectors.toList());
             
-            dbServlet.saveTournament(teams, matches);
+            dbServlet.saveTournament(filteredTeams, matches);
             //history.addEntry(filteredTeams, matches);
 
             MyTableModel tableModel = new MyTableModel();

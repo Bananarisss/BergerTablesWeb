@@ -1,12 +1,13 @@
 C:\Users\biuro\Desktop\Uczelnia\Java\BergerTablesWeb\src\main\java\pl\polsl\bergertablesweb\model\BergerTablesModel.java
-C:\Users\biuro\Desktop\Uczelnia\Java\BergerTablesWeb\src\main\java\pl\polsl\bergertablesweb\entities\MatchEntity.java
 C:\Users\biuro\Desktop\Uczelnia\Java\BergerTablesWeb\src\main\java\pl\polsl\bergertablesweb\model\MatchPair.java
 C:\Users\biuro\Desktop\Uczelnia\Java\BergerTablesWeb\src\main\java\pl\polsl\bergertablesweb\servlet\DatabaseServlet.java
-C:\Users\biuro\Desktop\Uczelnia\Java\BergerTablesWeb\src\main\java\pl\polsl\bergertablesweb\model\BergerTablesHistory.java
-C:\Users\biuro\Desktop\Uczelnia\Java\BergerTablesWeb\src\main\java\pl\polsl\bergertablesweb\servlet\HistoryServlet.java
+C:\Users\biuro\Desktop\Uczelnia\Java\BergerTablesWeb\src\main\java\pl\polsl\bergertablesweb\util\JPAUtil.java
 C:\Users\biuro\Desktop\Uczelnia\Java\BergerTablesWeb\src\main\java\pl\polsl\bergertablesweb\model\MyTableModel.java
 C:\Users\biuro\Desktop\Uczelnia\Java\BergerTablesWeb\src\main\java\pl\polsl\bergertablesweb\entities\TournamentEntity.java
+C:\Users\biuro\Desktop\Uczelnia\Java\BergerTablesWeb\src\main\java\pl\polsl\bergertablesweb\resources\JakartaEE10Resource.java
+C:\Users\biuro\Desktop\Uczelnia\Java\BergerTablesWeb\src\main\java\pl\polsl\bergertablesweb\entities\MatchEntity.java
+C:\Users\biuro\Desktop\Uczelnia\Java\BergerTablesWeb\src\main\java\pl\polsl\bergertablesweb\model\BergerTablesHistory.java
+C:\Users\biuro\Desktop\Uczelnia\Java\BergerTablesWeb\src\main\java\pl\polsl\bergertablesweb\servlet\HistoryServlet.java
 C:\Users\biuro\Desktop\Uczelnia\Java\BergerTablesWeb\src\main\java\pl\polsl\bergertablesweb\JakartaRestConfiguration.java
 C:\Users\biuro\Desktop\Uczelnia\Java\BergerTablesWeb\src\main\java\pl\polsl\bergertablesweb\exceptions\InvalidNumberException.java
 C:\Users\biuro\Desktop\Uczelnia\Java\BergerTablesWeb\src\main\java\pl\polsl\bergertablesweb\servlet\BergerTablesServlet.java
-C:\Users\biuro\Desktop\Uczelnia\Java\BergerTablesWeb\src\main\java\pl\polsl\bergertablesweb\resources\JakartaEE10Resource.java

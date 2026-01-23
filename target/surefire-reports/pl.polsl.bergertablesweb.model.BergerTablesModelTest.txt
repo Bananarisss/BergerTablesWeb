@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: pl.polsl.bergertablesweb.model.BergerTablesModelTest
 -------------------------------------------------------------------------------
-Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.120 s -- in pl.polsl.bergertablesweb.model.BergerTablesModelTest
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.139 s -- in pl.polsl.bergertablesweb.model.BergerTablesModelTest

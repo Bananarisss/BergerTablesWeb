@@ -10,6 +10,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jakartaee>10.0.0</jakartaee>
+        <hibernate.version>5.6.1.Final</hibernate.version>
     </properties>
     
     <dependencies>

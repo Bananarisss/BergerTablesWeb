@@ -27,30 +27,7 @@ import pl.polsl.bergertablesweb.model.*;
 public class DatabaseServlet extends HttpServlet {
 
     private static final Logger logger = Logger.getLogger(DatabaseServlet.class.getName());
-    private static EntityManagerFactory emf;// = Persistence.createEntityManagerFactory("my_persistence_unit");
-    
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        // Pobierz nazwę jednostki trwałości z context-param (unikamy zaszytego stringa)
-        String puName = getServletContext().getInitParameter("persistenceUnitName");
-        try {
-            emf = Persistence.createEntityManagerFactory(puName);
-            logger.info("EntityManagerFactory initialized for PU: " + puName);
-        } catch (PersistenceException ex) {
-            logger.log(Level.SEVERE, "Failed to initialize EntityManagerFactory for PU: " + puName, ex);
-            throw new ServletException("Błąd inicjalizacji połączenia z bazą danych.", ex);
-        }
-    }
-
-    @Override
-    public void destroy() {
-        if (emf != null && emf.isOpen()) {
-            emf.close();
-            logger.info("EntityManagerFactory closed.");
-        }
-        super.destroy();
-    }
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("my_persistence_unit");
     
     public List<TournamentEntity> getAllTournaments() {
         List<TournamentEntity> tournamentList = null;
