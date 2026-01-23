@@ -9,8 +9,14 @@ import jakarta.persistence.Id;
 import java.io.Serializable;
 
 /**
+ * Represents a single match entity in the database.
+ * <p>
+ * This class stores information about a match between two teams and is linked
+ * to a specific tournament.
+ * </p>
  *
- * @author Domi
+ * @author Dominika
+ * @version 1.0
  */
 @Entity
 public class MatchEntity implements Serializable {
@@ -25,23 +31,39 @@ public class MatchEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name = "tournament_id")
     private TournamentEntity tournament;
-    
+
     public MatchEntity() {
     }
-    
+
+    /**
+     * Parametrized constructor to create a match with specific teams.
+     *
+     * @param team1 Name of the first team.
+     * @param team2 Name of the second team.
+     */
     public MatchEntity(String team1, String team2) {
         this.team1 = team1;
         this.team2 = team2;
     }
 
+    /**
+     * This method returns the tournament associated with this match.
+     *
+     * @return the tournament.
+     */
     public TournamentEntity getTournament() {
         return tournament;
     }
 
+    /**
+     * Set the tournament associated with this match.
+     *
+     * @param tournament the tournament.
+     */
     public void setTournament(TournamentEntity tournament) {
         this.tournament = tournament;
     }
-    
+
     /**
      * Get the value of team1
      *
@@ -69,7 +91,6 @@ public class MatchEntity implements Serializable {
         this.team2 = team2;
     }
 
-
     /**
      * Set the value of team1
      *
@@ -78,16 +99,31 @@ public class MatchEntity implements Serializable {
     public void setTeam1(String team1) {
         this.team1 = team1;
 
-}
-    
+    }
+
+    /**
+     * Get the value of the Id
+     *
+     * @return
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * Set the value of the Id
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * Computes the hash code for this object based on its ID.
+     *
+     * @return An integer hash code.
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -95,6 +131,12 @@ public class MatchEntity implements Serializable {
         return hash;
     }
 
+    /**
+     * Compares this object with another object.
+     *
+     * @param object the object to compare with.
+     * @return true if objects are equal, otherwise false.
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -108,9 +150,14 @@ public class MatchEntity implements Serializable {
         return true;
     }
 
+    /**
+     * Returns a string representation of the object.
+     *
+     * * @return A string containing the class name and ID.
+     */
     @Override
     public String toString() {
         return "pl.polsl.bergertablesweb.entities.MatchEntity[ id=" + id + " ]";
     }
-    
+
 }

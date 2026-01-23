@@ -14,21 +14,27 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.persistence.*;
 import jakarta.servlet.ServletConfig;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import pl.polsl.bergertablesweb.entities.*;
 import pl.polsl.bergertablesweb.model.*;
 
 /**
+ * The DatabaseServlet class is a servlet responsible for handling database
+ * operations.
  *
- * @author Domi
+ * @author Dominika
+ * @version 2.0
  */
 @WebServlet(name = "DatabaseServlet", urlPatterns = {"/DatabaseServlet"})
 public class DatabaseServlet extends HttpServlet {
 
-    private static final Logger logger = Logger.getLogger(DatabaseServlet.class.getName());
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("my_persistence_unit");
-    
+
+    /**
+     * This method retrives all tournament entities from database.
+     *
+     * @return A list of all tournaments found in the database.
+     * @throws PersistenceException if the database operation fails.
+     */
     public List<TournamentEntity> getAllTournaments() {
         List<TournamentEntity> tournamentList = null;
         EntityManager em = emf.createEntityManager();
@@ -37,7 +43,6 @@ public class DatabaseServlet extends HttpServlet {
             Query query = em.createQuery("SELECT t FROM TournamentEntity t", TournamentEntity.class);
             tournamentList = query.getResultList();
         } catch (PersistenceException e) {
-            logger.log(Level.SEVERE, "Error reading tournaments from DB", e);
             em.getTransaction().rollback();
             throw e;
         } finally {
@@ -45,6 +50,7 @@ public class DatabaseServlet extends HttpServlet {
         }
         return tournamentList;
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -84,6 +90,18 @@ public class DatabaseServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    /**
+     * This method saves a new tournament and its generated matches to the
+     * database.
+     * <p>
+     * It converts the input lists into TournamentEntity and MatchEntity
+     * objects.
+     * </p>
+     *
+     * @param teams List of teams names.
+     * @param matches List of generated matches for given teams.
+     * @throws PersistenceException if the databese transaction fails.
+     */
     public void saveTournament(List<String> teams, List<MatchPair> matches) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
@@ -91,16 +109,14 @@ public class DatabaseServlet extends HttpServlet {
             TournamentEntity tournament = new TournamentEntity();
             tournament.setTeamNames(String.join(", ", teams));
 
-        // Konwersja z rekordu MatchPair na Encję MatchEntity
             for (MatchPair pair : matches) {
                 MatchEntity matchEntity = new MatchEntity(pair.team1(), pair.team2());
                 tournament.addMatch(matchEntity);
             }
 
-            em.persist(tournament); // Zapisuje Turniej i kaskadowo wszystkie Mecze
+            em.persist(tournament);
             em.getTransaction().commit();
         } catch (PersistenceException e) {
-            logger.log(Level.SEVERE, "Error saving tournament", e);
             em.getTransaction().rollback();
             throw e;
         } finally {
@@ -108,6 +124,12 @@ public class DatabaseServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Generic method to persist any object to the database.
+     *
+     * @param object The entity object to be saved.
+     * @throws PersistenceException if the save operation fails.
+     */
     void persistObject(Object object) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
@@ -115,15 +137,14 @@ public class DatabaseServlet extends HttpServlet {
             em.persist(object);
             em.getTransaction().commit();
         } catch (PersistenceException e) {
-            logger.log(Level.SEVERE, "Error persisting object", e);
             em.getTransaction().rollback();
             throw e;
         } finally {
             em.close();
         }
     }
-    
-     /**
+
+    /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
@@ -141,13 +162,11 @@ public class DatabaseServlet extends HttpServlet {
             // forward do JSP, które wyświetla listę
             request.getRequestDispatcher("/database.jsp").forward(request, response);
         } catch (PersistenceException ex) {
-            logger.log(Level.SEVERE, "Database error in doGet", ex);
             request.setAttribute("errorMessage", "Błąd podczas pobierania danych z bazy: " + ex.getMessage());
             request.getRequestDispatcher("/error.jsp").forward(request, response);
         } catch (Exception ex) {
-            logger.log(Level.SEVERE, "Unexpected error in doGet", ex);
             request.setAttribute("errorMessage", "Wystąpił błąd: " + ex.getMessage());
             request.getRequestDispatcher("/error.jsp").forward(request, response);
         }
-    } 
+    }
 }

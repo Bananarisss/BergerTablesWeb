@@ -17,18 +17,18 @@
     <body>
         <h1>History</h1>
         <%
-            List<TournamentEntity> historyList = (List<TournamentEntity>) request.getAttribute("historyList");
+            List<HistoryEntry> historyList = (List<HistoryEntry>) request.getAttribute("historyList");
             
             if (historyList != null && !historyList.isEmpty()) {
         %>
             <ol>
-                <% for (TournamentEntity entry : historyList) { %>
+                <% for (HistoryEntry entry : historyList) { %>
                     <li>
-                        <strong>Teams:</strong> <%= entry.getTeamNames() %> <br>
+                        <strong>Teams:</strong> <%= entry.getNames() %> <br>
                         <strong>Matches:</strong> 
                         <% 
-                           for(MatchEntity match : entry.getMatches()) {
-                               out.print("[" + match.getTeam1() + " vs " + match.getTeam2() + "] ");
+                           for(MatchPair match : entry.getMatches()) {
+                               out.print("[" + match.team1() + " vs " + match.team2() + "] ");
                            }
                         %>
                     </li>

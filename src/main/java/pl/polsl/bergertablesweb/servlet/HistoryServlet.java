@@ -12,7 +12,6 @@ import jakarta.servlet.*;
 import java.io.IOException;
 import java.util.List;
 import jakarta.servlet.annotation.WebServlet;
-import pl.polsl.bergertablesweb.entities.*;
 
 /**
  * The HistoryServlet class is responsible for handling HTTP request related to
@@ -27,7 +26,6 @@ import pl.polsl.bergertablesweb.entities.*;
 @WebServlet("/HistoryServlet")
 public class HistoryServlet extends HttpServlet {
 
-    private DatabaseServlet dbServlet = new DatabaseServlet();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -42,17 +40,15 @@ public class HistoryServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-//        BergerTablesHistory history
-//                = (BergerTablesHistory) getServletContext().getAttribute("history");
-//        if (history == null) {
-//            history = new BergerTablesHistory();
-//            getServletContext().setAttribute("history", history);
-//        }
-//
-//        // Retrieve calculation history and set it as a request attribute
-//        List<HistoryEntry> historyList = history.getHistory();
+        BergerTablesHistory history
+                = (BergerTablesHistory) getServletContext().getAttribute("history");
+        if (history == null) {
+            history = new BergerTablesHistory();
+            getServletContext().setAttribute("history", history);
+        }
 
-        List<TournamentEntity> historyList = dbServlet.getAllTournaments();
+        // Retrieve calculation history and set it as a request attribute
+        List<HistoryEntry> historyList = history.getHistory();
 
         request.setAttribute("historyList", historyList);
 

@@ -86,7 +86,7 @@
     <div class="container">
         <form action="BergerTablesServlet" method="get">
             <% if (!lastTeamsNames.isEmpty()) { %>
-            <div class="hint">Previous names of <%=numberOfLastTeams %> teams have been inserted.</div>
+            <div class="hint">Previous names of <%=numberOfLastTeams %> teams have been inserted from cookie.</div>
             <% } %>
             <textarea id="teamsNames" name="teamsNames" placeholder="Team A&#10;Team B&#10;Team C"><%=lastTeamsNames %></textarea>
             <br>

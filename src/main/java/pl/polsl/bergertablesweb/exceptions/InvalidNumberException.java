@@ -16,7 +16,6 @@ package pl.polsl.bergertablesweb.exceptions;
  * @author Dominika
  * @version 1.0
  */
-
 public class InvalidNumberException extends Exception {
 
     /**

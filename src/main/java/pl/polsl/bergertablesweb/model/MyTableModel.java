@@ -83,5 +83,5 @@ public class MyTableModel {
     public Object getValueAt(int row, int col) {
         return data[row][col];
     }
-    
+
 }

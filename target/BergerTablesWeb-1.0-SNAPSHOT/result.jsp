@@ -37,12 +37,12 @@
     </table>
     <% } 
 else if (tabelModel == null) {%>
-<p>Tablica pusta</p>
+<p>History is empty</p>
 <% } %>
     <br>
         <a href="index.jsp">← Change teams names</a>
         <a href="HistoryServlet">History</a>
-        <a href="DatabaseServlet">Database</a>
+        <a href="DatabaseServlet">Database</a> 
     </body>
     
     <style>

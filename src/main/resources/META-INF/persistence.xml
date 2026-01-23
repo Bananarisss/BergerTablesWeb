@@ -2,8 +2,7 @@
 <persistence version="3.0" xmlns="https://jakarta.ee/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
   <!-- Define Persistence Unit -->
   <persistence-unit name="my_persistence_unit" transaction-type="RESOURCE_LOCAL">
-<!--        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>-->
-      <provider>org.hibarnate.jpa.HibernatePersistanceProvider</provider>
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         
         <class>pl.polsl.bergertablesweb.entities.TournamentEntity</class>
         <class>pl.polsl.bergertablesweb.entities.MatchEntity</class>
@@ -14,13 +13,10 @@
             <property name="jakarta.persistence.jdbc.url" value="jdbc:derby://localhost:1527/sample;create=true"/>
             <property name="jakarta.persistence.jdbc.user" value="app"/>
             <property name="jakarta.persistence.jdbc.password" value="app"/>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.DerbyDialect" />
-            <property name="hibernate.show_sql" value="true" />
-            <property name="hibernate.hbm2ddl.auto" value="update" />
             
             <property name="jakarta.persistence.schema-generation.database.action" value="create"/>
             
-<!--            <property name="eclipselink.logging.level" value="FINE"/>-->
+            <property name="eclipselink.logging.level" value="FINE"/>
         </properties>
     </persistence-unit>
 </persistence>

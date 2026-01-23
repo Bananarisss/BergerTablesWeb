@@ -34,7 +34,7 @@ abstract class TeamModel {
      * A list containing the names of all teams.
      */
     //@MinLength(value = 2, message = "There must be at least 2 teams",
-        //    necessity = MinLength.Necessity.HIGH)
+    //    necessity = MinLength.Necessity.HIGH)
     private List<String> teams;
 
     /**
@@ -128,7 +128,7 @@ public class BergerTablesModel extends TeamModel {
             }
             rotate(teams);
         }
-        
+
         return games;
     }
 

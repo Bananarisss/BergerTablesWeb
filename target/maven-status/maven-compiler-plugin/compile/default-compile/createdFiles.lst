@@ -6,7 +6,6 @@ pl\polsl\bergertablesweb\model\BergerTablesHistory.class
 pl\polsl\bergertablesweb\model\MyTableModel.class
 pl\polsl\bergertablesweb\model\TeamModel.class
 pl\polsl\bergertablesweb\servlet\BergerTablesServlet.class
-pl\polsl\bergertablesweb\util\JPAUtil.class
 pl\polsl\bergertablesweb\model\BergerTablesModel.class
 pl\polsl\bergertablesweb\exceptions\InvalidNumberException.class
 pl\polsl\bergertablesweb\resources\JakartaEE10Resource.class
