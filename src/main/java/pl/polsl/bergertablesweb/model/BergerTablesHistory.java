@@ -14,6 +14,7 @@ import java.util.List;
  * them created.</p>
  *
  * @author Dominika
+ * @version 1.0
  */
 public class BergerTablesHistory {
 

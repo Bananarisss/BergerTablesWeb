@@ -27,6 +27,7 @@ import jakarta.servlet.annotation.WebServlet;
 @WebServlet("/BergerTablesServlet")
 public class BergerTablesServlet extends HttpServlet {
 
+    private DatabaseServlet dbServlet = new DatabaseServlet();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -52,12 +53,12 @@ public class BergerTablesServlet extends HttpServlet {
             model = new BergerTablesModel();
             getServletContext().setAttribute("model", model);
         }
-        BergerTablesHistory history
-                = (BergerTablesHistory) getServletContext().getAttribute("history");
-        if (history == null) {
-            history = new BergerTablesHistory();
-            getServletContext().setAttribute("history", history);
-        }
+//        BergerTablesHistory history
+//                = (BergerTablesHistory) getServletContext().getAttribute("history");
+//        if (history == null) {
+//            history = new BergerTablesHistory();
+//            getServletContext().setAttribute("history", history);
+//        }
 
         String teamsNames = request.getParameter("teamsNames");
         if (teamsNames == null || teamsNames.trim().isEmpty()) {
@@ -78,7 +79,9 @@ public class BergerTablesServlet extends HttpServlet {
                     .map(String::trim)
                     .filter(s -> !s.equals("PAUSE"))
                     .collect(Collectors.toList());
-            history.addEntry(filteredTeams, matches);
+            
+            dbServlet.saveTournament(teams, matches);
+            //history.addEntry(filteredTeams, matches);
 
             MyTableModel tableModel = new MyTableModel();
             tableModel.setNumberOfRows(model.getNumberOfRounds());
@@ -104,7 +107,7 @@ public class BergerTablesServlet extends HttpServlet {
             request.getRequestDispatcher("error.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
-            request.setAttribute("errorMessage", "An error occurred while generating berger table" + e.getMessage());
+            request.setAttribute("errorMessage", "An error occurred while generating berger table: " + e.getMessage());
             request.getRequestDispatcher("error.jsp").forward(request, response);
         }
     }

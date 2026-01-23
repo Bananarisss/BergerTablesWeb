@@ -7,6 +7,7 @@
 <%@ page import="pl.polsl.bergertablesweb.model.BergerTablesHistory.HistoryEntry" %>
 <%@ page import="java.util.List" %>
 <%@ page import="pl.polsl.bergertablesweb.model.MatchPair" %>
+<%@ page import="pl.polsl.bergertablesweb.entities.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -16,19 +17,18 @@
     <body>
         <h1>History</h1>
         <%
-            List<HistoryEntry> historyList = (List<HistoryEntry>) request.getAttribute("historyList");
+            List<TournamentEntity> historyList = (List<TournamentEntity>) request.getAttribute("historyList");
             
             if (historyList != null && !historyList.isEmpty()) {
         %>
             <ol>
-                <% for (HistoryEntry entry : historyList) { %>
+                <% for (TournamentEntity entry : historyList) { %>
                     <li>
-                        <strong>Teams:</strong> <%= entry.getNames() %> <br>
+                        <strong>Teams:</strong> <%= entry.getTeamNames() %> <br>
                         <strong>Matches:</strong> 
                         <% 
-                           // Wyświetlanie meczów w czytelniejszy sposób
-                           for(MatchPair match : entry.getMatches()) {
-                               out.print("[" + match.team1() + " vs " + match.team2() + "] ");
+                           for(MatchEntity match : entry.getMatches()) {
+                               out.print("[" + match.getTeam1() + " vs " + match.getTeam2() + "] ");
                            }
                         %>
                     </li>

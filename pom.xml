@@ -43,6 +43,11 @@
             <version>5.10.3</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.derbyclient</groupId>
+            <artifactId>derby-client</artifactId>
+            <version>10.14.2.0</version>
+        </dependency>
     </dependencies>
     
     <build>
